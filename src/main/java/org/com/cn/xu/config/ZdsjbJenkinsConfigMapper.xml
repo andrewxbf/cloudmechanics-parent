@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon May 09 14:39:04 CST 2016-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ZdsjbJenkinsConfigMapper">
+    <select id="getZdsjbJenkinsConfigList" parameterType="ZdsjbJenkinsConfig" resultType="ZdsjbJenkinsConfig">
+       SELECT JKS_HOST_IP     AS jksHostIp,
+               JKS_PORT        AS jksPort,
+               JKS_USER_NAME   AS jksUserName,
+               JKS_PASSWORD    AS jksPassword,
+               JKS_PACKAGE_URL AS jksPackageUrl,
+               JKS_CONFIG_NO   AS jksConfigNo,
+               AREA_CODE       AS areaCode,
+               IS_SELECTED     AS isSelected
+          FROM ZDSJB_JENKINS_CONFIG
+         WHERE AREA_CODE = #{areaCode, jdbcType = VARCHAR}
+         ORDER BY JKS_CONFIG_NO
+    </select>
+
+    <insert id="insertZdsjbJenkinsConfig" parameterType="ZdsjbJenkinsConfig">
+        INSERT INTO ZDSJB_JENKINS_CONFIG
+          (JKS_HOST_IP,
+           JKS_PORT,
+           JKS_USER_NAME,
+           JKS_PASSWORD,
+           JKS_PACKAGE_URL,
+           JKS_CONFIG_NO,
+           AREA_CODE)
+        VALUES
+          (#{jksHostIp,
+           jdbcType = VARCHAR},
+           #{jksPort,
+           jdbcType = NUMERIC},
+           #{jksUserName,
+           jdbcType = VARCHAR},
+           #{jksPassword,
+           jdbcType = VARCHAR},
+           #{jksPackageUrl,
+           jdbcType = VARCHAR},
+           #{jksConfigNo,
+           jdbcType = NUMERIC},
+           #{areaCode,
+           jdbcType = VARCHAR})
+    </insert>
+
+    <update id="updateZdsjbJenkinsConfig" parameterType="ZdsjbJenkinsConfig">
+         UPDATE ZDSJB_JENKINS_CONFIG
+           SET JKS_HOST_IP     = #{jksHostIp,
+               jdbcType        = VARCHAR},
+               JKS_PORT        = #{jksPort,
+               jdbcType        = NUMERIC},
+               JKS_USER_NAME   = #{jksUserName,
+               jdbcType        = VARCHAR},
+               JKS_PASSWORD    = #{jksPassword,
+               jdbcType        = VARCHAR},
+               JKS_PACKAGE_URL = #{jksPackageUrl,
+               jdbcType        = VARCHAR},
+               JKS_CONFIG_NO   = #{jksConfigNo,
+               jdbcType        = NUMERIC},
+               AREA_CODE       = #{areaCode,
+               jdbcType        = VARCHAR}
+         WHERE 1 = 1
+         AND AREA_CODE = #{areaCode, jdbcType=VARCHAR}
+         AND JKS_PACKAGE_URL = #{jksPackageUrl,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteZdsjbJenkinsConfigByKey" parameterType="java.lang.String">
+        DELETE FROM ZDSJB_JENKINS_CONFIG WHERE 1 = 1
+        AND AREA_CODE = #{areaCode, jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteZdsjbJenkinsConfig" parameterType="ZdsjbJenkinsConfig">
+        DELETE FROM ZDSJB_JENKINS_CONFIG WHERE 1 = 1
+        AND AREA_CODE = #{areaCode, jdbcType=VARCHAR}
+        <if test="jksPackageUrl != null and jksPackageUrl!=''">
+            AND JKS_PACKAGE_URL = #{jksPackageUrl,jdbcType=VARCHAR}
+        </if>
+    </delete>
+</mapper>
+

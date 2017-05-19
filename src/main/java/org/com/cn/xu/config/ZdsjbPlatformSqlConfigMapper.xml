@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon May 09 14:39:04 CST 2016-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ZdsjbPlatformSqlConfigMapper">
+    <select id="getZdsjbPlatformSqlConfigList" parameterType="ZdsjbPlatformSqlConfig" resultType="ZdsjbPlatformSqlConfig">
+        SELECT PT_SQL_HOST_IP        AS ptSqlHostIp,
+               PT_SQL_PORT           AS ptSqlPort,
+               PT_SQL_USER_NAME      AS ptSqluserName,
+               PT_SQL_PASSWORD       AS ptSqlPassword,
+               PT_SQL_FILE_PATH      AS ptSqlFilePath,
+               PT_SQL_FILE_SAVE_PATH AS ptSqlFileSavePath,
+               PT_SQL_CONFIG_NO      AS ptSqlCofnigNo,
+               AREA_CODE             AS areaCode
+          FROM ZDSJB_PLATFORM_SQL_CONFIG
+         WHERE 1 = 1
+           AND AREA_CODE = #{areaCode, jdbcType = VARCHAR}
+    </select>
+
+    <insert id="insertZdsjbPlatformSqlConfig" parameterType="ZdsjbPlatformSqlConfig">
+        INSERT INTO ZDSJB_PLATFORM_SQL_CONFIG
+          (PT_SQL_HOST_IP,
+           PT_SQL_PORT,
+           PT_SQL_USER_NAME,
+           PT_SQL_PASSWORD,
+           PT_SQL_FILE_PATH,
+           PT_SQL_FILE_SAVE_PATH,
+           PT_SQL_CONFIG_NO,
+           AREA_CODE)
+        VALUES
+          (#{ ptSqlHostIp,
+           jdbcType = VARCHAR},
+           #{ ptSqlPort,
+           jdbcType = NUMERIC},
+           #{ ptSqluserName,
+           jdbcType = VARCHAR},
+           #{ ptSqlPassword,
+           jdbcType = VARCHAR},
+           #{ ptSqlFilePath,
+           jdbcType = VARCHAR},
+           #{ ptSqlFileSavePath,
+           jdbcType = VARCHAR},
+           #{ ptSqlCofnigNo,
+           jdbcType = NUMERIC},
+           #{ areaCode,
+           jdbcType = VARCHAR})
+    </insert>
+
+    <update id="updateZdsjbPlatformSqlConfig" parameterType="ZdsjbPlatformSqlConfig">
+        UPDATE ZDSJB_PLATFORM_SQL_CONFIG
+           SET PT_SQL_HOST_IP        = #{ ptSqlHostIp,
+               jdbcType              = VARCHAR},
+               PT_SQL_PORT           = #{ ptSqlPort,
+               jdbcType              = NUMERIC},
+               PT_SQL_USER_NAME      = #{ ptSqluserName,
+               jdbcType              = VARCHAR},
+               PT_SQL_PASSWORD       = #{ ptSqlPassword,
+               jdbcType              = VARCHAR},
+               PT_SQL_FILE_PATH      = #{ ptSqlFilePath,
+               jdbcType              = VARCHAR},
+               PT_SQL_FILE_SAVE_PATH = #{ ptSqlFileSavePath,
+               jdbcType              = VARCHAR},
+               PT_SQL_CONFIG_NO      = #{ ptSqlCofnigNo,
+               jdbcType              = NUMERIC},
+               AREA_CODE             = #{ areaCode,
+               jdbcType              = VARCHAR}
+         WHERE 1 = 1
+           AND AREA_CODE = #{areaCode, jdbcType = VARCHAR}
+           AND PT_SQL_FILE_PATH = #{ptSqlFilePath, jdbcType = VARCHAR}
+    </update>
+
+    <delete id="deleteZdsjbPlatformSqlConfig" parameterType="ZdsjbPlatformSqlConfig">
+        DELETE FROM ZDSJB_PLATFORM_SQL_CONFIG
+        WHERE 1 = 1
+        AND AREA_CODE = #{areaCode, jdbcType = VARCHAR}
+        <if test="ptSqlFilePath != null and ptSqlFilePath != ''">
+            AND PT_SQL_FILE_PATH = #{ ptSqlFilePath, jdbcType = VARCHAR}
+        </if>
+    </delete>
+
+</mapper>
+

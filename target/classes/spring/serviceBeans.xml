@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--
+
+    <bean id="ZdsjbAreaInfoServiceImpl" class="org.com.cn.xu.service.impl.ZdsjbAreaInfoServiceImpl"/>
+    <bean id="ZdsjbJenkinsConfigServiceImpl" class="org.com.cn.xu.service.impl.ZdsjbJenkinsConfigServiceImpl"/>
+    <bean id="ZdsjbDownloadConfigServiceImpl" class="org.com.cn.xu.service.impl.ZdsjbDownloadConfigServiceImpl"/>
+    <bean id="ZdsjbSqlConfigServiceImpl" class="org.com.cn.xu.service.impl.ZdsjbSqlConfigServiceImpl"/>
+    <bean id="ZdsjbUploadServiceConfigImpl" class="org.com.cn.xu.service.impl.ZdsjbUploadServiceConfigImpl"/>
+    <bean id="ZdsjbZipServiceConfigImpl" class="org.com.cn.xu.service.impl.ZdsjbZipServiceConfigImpl"/>
+-->
+
+</beans>

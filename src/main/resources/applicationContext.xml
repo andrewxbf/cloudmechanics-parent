@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	        http://www.springframework.org/schema/context
+	        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!--加载配置文件-->
+	<context:property-placeholder location="classpath*:*.properties" ignore-unresolvable="true"/>
+	<import resource="classpath:dataSource.xml"/>
+	<import resource="classpath:spring/serviceBeans.xml"/>
+
+	<context:annotation-config/>
+	<context:component-scan base-package="org.com.cn.xu"/>
+
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="zdsjbDataSource"/>
+	</bean>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="zdsjbDataSource"/>
+		<property name="configLocation" value="classpath:spring/mybatisConfig.xml"/>
+		<property name="mapperLocations" value="classpath*:org/com/cn/xu/config/*Mapper.xml"/>
+		<property name="typeAliasesPackage" value="org.com.cn.xu.model"/>
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<value>
+							dialect=oracle
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
+	</bean>
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"/>
+	</bean>
+
+</beans>

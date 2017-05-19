@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon May 09 14:39:04 CST 2016-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ZdsjbLocalSqlConfigMapper">
+    <select id="getZdsjbLocalSqlConfigList" parameterType="ZdsjbLocalSqlConfig" resultType="ZdsjbLocalSqlConfig">
+        SELECT LOCAL_SQL_HOST_IP        AS localSqlHostIp,
+               LOCAL_SQL_PORT           AS localSqlPort,
+               LOCAL_SQL_USER_NAME      AS localSqluserName,
+               LOCAL_SQL_PASSWORD       AS localSqlPassword,
+               LOCAL_SQL_FILE_PATH      AS localSqlFilePath,
+               LOCAL_SQL_FILE_SAVE_PATH AS localSqlFileSavePath,
+               LOCAL_SQL_CONFIG_NO      AS localSqlCofnigNo,
+               AREA_CODE             AS areaCode
+          FROM ZDSJB_LOCAL_SQL_CONFIG
+         WHERE 1 = 1
+           AND AREA_CODE = #{areaCode, jdbcType = VARCHAR}
+    </select>
+
+    <insert id="insertZdsjbLocalSqlConfig" parameterType="ZdsjbLocalSqlConfig">
+        INSERT INTO ZDSJB_LOCAL_SQL_CONFIG
+          (LOCAL_SQL_HOST_IP,
+           LOCAL_SQL_PORT,
+           LOCAL_SQL_USER_NAME,
+           LOCAL_SQL_PASSWORD,
+           LOCAL_SQL_FILE_PATH,
+           LOCAL_SQL_FILE_SAVE_PATH,
+           LOCAL_SQL_CONFIG_NO,
+           AREA_CODE)
+        VALUES
+          (#{ localSqlHostIp,
+           jdbcType = VARCHAR},
+           #{ localSqlPort,
+           jdbcType = NUMERIC},
+           #{ localSqluserName,
+           jdbcType = VARCHAR},
+           #{ localSqlPassword,
+           jdbcType = VARCHAR},
+           #{ localSqlFilePath,
+           jdbcType = VARCHAR},
+           #{ localSqlFileSavePath,
+           jdbcType = VARCHAR},
+           #{ localSqlCofnigNo,
+           jdbcType = NUMERIC},
+           #{ areaCode,
+           jdbcType = VARCHAR})
+    </insert>
+
+    <update id="updateZdsjbLocalSqlConfig" parameterType="ZdsjbLocalSqlConfig">
+        UPDATE ZDSJB_LOCAL_SQL_CONFIG
+           SET LOCAL_SQL_HOST_IP        = #{ localSqlHostIp,
+               jdbcType              = VARCHAR},
+               LOCAL_SQL_PORT           = #{ localSqlPort,
+               jdbcType              = NUMERIC},
+               LOCAL_SQL_USER_NAME      = #{ localSqluserName,
+               jdbcType              = VARCHAR},
+               LOCAL_SQL_PASSWORD       = #{ localSqlPassword,
+               jdbcType              = VARCHAR},
+               LOCAL_SQL_FILE_PATH      = #{ localSqlFilePath,
+               jdbcType              = VARCHAR},
+               LOCAL_SQL_FILE_SAVE_PATH = #{ localSqlFileSavePath,
+               jdbcType              = VARCHAR},
+               LOCAL_SQL_CONFIG_NO      = #{ localSqlCofnigNo,
+               jdbcType              = NUMERIC},
+               AREA_CODE             = #{ areaCode,
+               jdbcType              = VARCHAR}
+         WHERE 1 = 1
+           AND AREA_CODE = #{areaCode, jdbcType = VARCHAR}
+           AND LOCAL_SQL_FILE_PATH = #{localSqlFilePath, jdbcType = VARCHAR}
+    </update>
+
+    <delete id="deleteZdsjbLocalSqlConfig" parameterType="ZdsjbLocalSqlConfig">
+        DELETE FROM ZDSJB_LOCAL_SQL_CONFIG
+        WHERE 1 = 1
+        AND AREA_CODE = #{areaCode, jdbcType = VARCHAR}
+        <if test="localSqlFilePath != null and localSqlFilePath != ''">
+            AND LOCAL_SQL_FILE_PATH = #{ localSqlFilePath, jdbcType = VARCHAR}
+        </if>
+    </delete>
+
+</mapper>
+

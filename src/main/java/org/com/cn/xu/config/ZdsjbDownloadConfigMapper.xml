@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon May 09 14:39:04 CST 2016-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ZdsjbDownloadConfigMapper">
+    <select id="getZdsjbDownloadConfigList" parameterType="ZdsjbDownloadConfig" resultType="ZdsjbDownloadConfig">
+        SELECT DOWN_HOST_IP        AS downHostIp,
+               DOWN_PORT           AS downPort,
+               DOWN_USER_NAME      AS downUserName,
+               DOWN_PASSWORD       AS downPassword,
+               DOWN_FILE_NAME      AS downFileName,
+               DOWN_FILE_PATH      AS downFilePath,
+               DOWN_FILE_SAVE_PATH AS downFileSavePath,
+               DOWN_CONFIG_NO      AS downConfigNo,
+               AREA_CODE           AS areaCode,
+               IS_SELECTED         AS isSelected
+          FROM ZDSJB_DOWNLOAD_CONFIG
+         WHERE 1 = 1
+           AND AREA_CODE = #{areaCode, jdbcType = VARCHAR}
+    </select>
+
+    <insert id="insertZdsjbDownloadConfig" parameterType="ZdsjbDownloadConfig">
+        INSERT INTO ZDSJB_DOWNLOAD_CONFIG
+          (DOWN_HOST_IP,
+           DOWN_PORT,
+           DOWN_USER_NAME,
+           DOWN_PASSWORD,
+           DOWN_FILE_NAME,
+           DOWN_FILE_PATH,
+           DOWN_FILE_SAVE_PATH,
+           DOWN_CONFIG_NO,
+           AREA_CODE,
+           IS_SELECTED)
+        VALUES
+          (#{downHostIp,
+           jdbcType = VARCHAR},
+           #{downPort,
+           jdbcType = NUMERIC},
+           #{downUserName,
+           jdbcType = VARCHAR},
+           #{downPassword,
+           jdbcType = VARCHAR},
+           #{downFileName,
+           jdbcType = VARCHAR},
+           #{downFilePath,
+           jdbcType = VARCHAR},
+           #{downFileSavePath,
+           jdbcType = VARCHAR},
+           #{downConfigNo,
+           jdbcType = NUMERIC},
+           #{areaCode,
+           jdbcType = VARCHAR},
+           #{isSelected,
+           jdbcType = NUMERIC})
+    </insert>
+
+    <update id="updateZdsjbDownloadConfig" parameterType="ZdsjbDownloadConfig">
+        UPDATE ZDSJB_DOWNLOAD_CONFIG
+           SET DOWN_HOST_IP        = #{downHostIp,
+               jdbcType            = VARCHAR},
+               DOWN_PORT           = #{downPort,
+               jdbcType            = NUMERIC},
+               DOWN_USER_NAME      = #{downUserName,
+               jdbcType            = VARCHAR},
+               DOWN_PASSWORD       = #{downPassword,
+               jdbcType            = VARCHAR},
+               DOWN_FILE_NAME      = #{downFileName,
+               jdbcType            = VARCHAR},
+               DOWN_FILE_PATH      = #{downFilePath,
+               jdbcType            = VARCHAR},
+               DOWN_FILE_SAVE_PATH = #{downFileSavePath,
+               jdbcType            = VARCHAR},
+               DOWN_CONFIG_NO      = #{downConfigNo,
+               jdbcType            = NUMERIC},
+               AREA_CODE           = #{areaCode,
+               jdbcType            = VARCHAR},
+               IS_SELECTED         = #{isSelected,
+               jdbcType            = NUMERIC}
+         WHERE 1 = 1
+           AND AREA_CODE = #{areaCode, jdbcType = VARCHAR}
+           AND DOWN_FILE_NAME = #{downFileName, jdbcType = VARCHAR}
+    </update>
+
+    <delete id="deleteZdsjbDownloadConfig" parameterType="ZdsjbDownloadConfig">
+        DELETE FROM ZDSJB_DOWNLOAD_CONFIG
+         WHERE 1 = 1
+           AND AREA_CODE = #{areaCode, jdbcType = VARCHAR}
+       <if test="downFileName != null and downFileName != ''">
+           AND DOWN_FILE_NAME = #{downFileName, jdbcType = VARCHAR}
+       </if>
+    </delete>
+
+</mapper>
+

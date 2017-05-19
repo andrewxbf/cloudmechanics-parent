@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon May 09 14:39:04 CST 2016-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ZdsjbZipConfigMapper">
+
+    <select id="getZdsjbZipConfigList" parameterType="ZdsjbZipConfig" resultType="ZdsjbZipConfig">
+        SELECT ZIP_FILE_TO   AS zipFileTo,
+               ZIP_FILE_FROM AS zipFileFrom,
+               ZIP_CONFIG_NO AS zipConfigNo,
+               AREA_CODE     AS areaCode,
+               ZIP_FILE_NAME AS zipFileName
+          FROM ZDSJB_ZIP_CONFIG
+         WHERE 1 = 1
+           AND AREA_CODE = #{areaCode, jdbcType = VARCHAR}
+    </select>
+
+    <insert id="insertZdsjbZipConfig" parameterType="ZdsjbZipConfig">
+        INSERT INTO ZDSJB_ZIP_CONFIG
+          (ZIP_FILE_TO, ZIP_FILE_FROM, ZIP_CONFIG_NO, AREA_CODE, ZIP_FILE_NAME)
+        VALUES
+          (#{zipFileTo,
+           jdbcType = VARCHAR},
+           #{zipFileFrom,
+           jdbcType = VARCHAR},
+           #{zipConfigNo,
+           jdbcType = NUMERIC},
+           #{areaCode,
+           jdbcType = VARCHAR},
+           #{zipFileName,
+           jdbcType = VARCHAR})
+    </insert>
+
+    <update id="updateZdsjbZipConfig" parameterType="ZdsjbZipConfig">
+        UPDATE ZDSJB_ZIP_CONFIG
+           SET ZIP_FILE_TO   = #{zipFileTo,
+               jdbcType      = VARCHAR},
+               ZIP_FILE_FROM = #{zipFileFrom,
+               jdbcType      = VARCHAR},
+               ZIP_CONFIG_NO = #{zipConfigNo,
+               jdbcType      = NUMERIC},
+               AREA_CODE     = #{areaCode,
+               jdbcType      = VARCHAR},
+               ZIP_FILE_NAME = #{zipFileName,
+               jdbcType      = VARCHAR}
+         WHERE 1 = 1
+           AND AREA_CODE = #{areaCode, jdbcType = VARCHAR}
+           AND ZIP_FILE_NAME = #{zipFileName, jdbcType = VARCHAR}
+    </update>
+
+    <delete id="deleteZdsjbZipConfig" parameterType="ZdsjbZipConfig">
+      DELETE FROM ZDSJB_ZIP_CONFIG
+        WHERE 1 = 1
+          AND AREA_CODE = #{areaCode, jdbcType = VARCHAR}
+      <if test="zipFileName != null and zipFileName != ''">
+          AND ZIP_FILE_NAME = #{zipFileName, jdbcType = VARCHAR}
+      </if>
+    </delete>
+</mapper>
+

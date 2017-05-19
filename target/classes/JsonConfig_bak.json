@@ -1,0 +1,92 @@
+{
+
+	"jenkinsServerConfig" : [
+      {
+        "jskHostIp": "192.168.29.102",
+        "jksPort": 80,
+        "jksUserName": "",
+        "jksPassword": ""
+      }
+    ],
+    
+    "downloadServerConfig" : [
+    	{
+    		"downHostIp" : "192.168.29.102",
+    		"downHostUserName" : "nfpt",
+    		"downHostPassword" : "nfpt",
+    		"downHostPort" : 22
+        }
+    ],
+         
+    "uploadServerConfig" : [
+    	{
+    		"upHostIp": "192.168.60.207", 
+            "upHostUserName": "liuxin", 
+            "upHostPassword": "liuxin123", 
+            "upHostPort": 21
+        }
+    ],
+    
+    "jenkinsPackageConfig":[
+    	{
+    		"jksUrl" : "http://192.168.29.102/jenkins/view/各地网厅成果/job/河北文书处理"
+    	},
+    	{
+    		"jksUrl" : "http://192.168.29.102/jenkins/view/各地网厅成果/job/河北文书流转"
+    	},
+    	{
+    		"jksUrl" : "http://192.168.29.102/jenkins/view/各地网厅成果/job/河北文书申请"
+    	}
+    ],
+       
+    "downloadPackageConfig": [
+        {
+            "downFileName" : "BsfwtWeb.par",
+            "downFilePath" : "/home/HbWt/BsfwtWeb/target/BsfwtWeb-1.0.001",
+            "downFileSavePath" : "D:/Temp/河北17年3月云厅1.0里程碑升级包/应用升级/plugin/BsfwtWeb.par"
+        },
+        {
+            "downFileName" : "bsfwtweb.war",
+            "downFilePath" : "/home/TyCpptUpdate/V1.0.027_CP170139(最终成果)/BsfwtWeb/共享库部署war",
+            "downFileSavePath" : "D:/Temp/河北17年3月云厅1.0里程碑升级包/应用升级/plugin/bsfwtweb.war"
+        },
+        {
+            "downFileName" : "HbNfpt.par",
+            "downFilePath" : "/home/HbNfpt/2_target/HbNfpt-1.0.001",
+            "downFileSavePath" : "D:/Temp/河北17年3月云厅1.0里程碑升级包/应用升级/plugin/HbNfpt.par"
+        }
+    ],
+    
+    "sqlConfig" : "D:/temp/河北17年3月云厅1.0里程碑升级包/sql_update/",
+    
+    "downloadPtSqlConfig": [
+        {
+            "downFilePath" : "/home/TyCpptUpdate/V1.0.026_CP170073(最终成果)/sql_update/",
+            "downFileSavePath" : "D:/temp/河北17年3月云厅1.0里程碑升级包/sql_update/pt/"
+        }
+    ],
+    
+            
+    "downloadLocalSqlConfig": [
+        {
+            "downFilePath" : "/河北/201703/数据库和脚本配置/",
+            "downFileSavePath" : "D:/temp/河北17年3月云厅1.0里程碑升级包/sql_update/local/"
+        }
+    ],
+    
+    "uploadConfig": [
+        {
+            "upFileName": "河北xbf-17年04月云厅1.0里程碑升级包.zip", 
+            "upFilePath": "/河北/河北_xbf/201704/河北04月里程碑升级包",
+            "upSourceFilePath": "D:/Temp"
+        }
+    ],
+    
+    "zipConfig": [
+        {
+            "zipFileFrom": "D:/Temp/河北17年3月云厅1.0里程碑升级包", 
+            "zipFileTo": "D:/Temp/河北xbf-17年04月云厅1.0里程碑升级包.zip"
+        }
+    ]
+    
+}

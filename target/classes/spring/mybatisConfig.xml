@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <typeAliases>
+        <typeAlias alias="ZdsjbAreaInfo" type="org.com.cn.xu.model.ZdsjbAreaInfo"/>
+        <typeAlias alias="ZdsjbDownloadConfig" type="org.com.cn.xu.model.ZdsjbDownloadConfig"/>
+        <typeAlias alias="ZdsjbJenkinsConfig" type="org.com.cn.xu.model.ZdsjbJenkinsConfig"/>
+        <typeAlias alias="ZdsjbLocalSqlConfig" type="org.com.cn.xu.model.ZdsjbLocalSqlConfig"/>
+        <typeAlias alias="ZdsjbPlatformSqlConfig" type="org.com.cn.xu.model.ZdsjbPlatformSqlConfig"/>
+        <typeAlias alias="ZdsjbUploadConfig" type="org.com.cn.xu.model.ZdsjbUploadConfig"/>
+        <typeAlias alias="ZdsjbZipConfig" type="org.com.cn.xu.model.ZdsjbZipConfig"/>
+
+    </typeAliases>
+</configuration>

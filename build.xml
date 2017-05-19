@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="${project.name}" basedir="." default="installpar">
+
+	<!-- 最终成果目录  -->
+	<property name="par.install.dir" value="D:\Workspaces\MyEclipse 10\AutoBuildTools-Sec\target">
+	</property>
+	<!-- 工程目标目录  -->
+	<property name="target.dir" value="${basedir}/target">
+	</property>
+	<!-- class文件目录 -->
+	<property name="class.dir" value="${target.dir}/classes">
+	</property>
+	<!-- 插件par包名称 -->
+	<property name="plugin.name" value="${project.artifactId}">
+	</property>
+	<!--应用的web root 目录-->
+	<property name="webroot.dir" value="${basedir}/src/main/webapp">
+	</property>
+	<!--应用的WEB-INF 目录-->
+	<property name="webinf.dir" value="${webroot.dir}/WEB-INF">
+	</property>
+	<!--应用的src 目录-->
+	<property name="src.dir" value="${basedir}/src/main/java">
+	</property>
+	<!--应用的resources 目录-->
+	<property name="resources.dir" value="${basedir}/src/main/resources">
+	</property>
+
+
+	<!-- 临时par包目录 -->
+	<property name="plugin.dir" value="${target.dir}/parb-par">
+	</property>
+	<!-- par包web资源目录 -->
+	<property name="staitc.file.path" value="${webroot.dir}/${plugin.name}">
+	</property>
+	<!-- par包webinf目录 -->
+	<property name="plugin.webinf.path" value="${plugin.dir}/WEB-INF">
+	</property>
+	<!-- par包config目录 -->
+	<property name="config.file.path" value="${plugin.webinf.path}/${plugin.name}">
+	</property>
+
+
+	<target name="cleanup">
+		<!--<delete dir="${server.domain.dir}/plugin" verbose="true">
+		</delete>-->
+	</target>
+
+	<!-- 常见par包相关目录 -->
+	<target name="mkdir">
+		<echo> ===================make dir=================== </echo>
+		<mkdir dir="${staitc.file.path}" />
+		<mkdir dir="${plugin.webinf.path}/parlib" />
+		<mkdir dir="${plugin.webinf.path}/classes" />
+		<mkdir dir="${config.file.path}" />
+	</target>
+
+	<!-- 打包par包的jar文件 -->
+	<target name="exportparjar" depends="mkdir">
+		<echo>===================打包特色jar包======================</echo>
+		<jar destfile="${plugin.webinf.path}/parlib/${plugin.name}-${project.version}.jar">
+			<fileset dir="${class.dir}">
+				<include name="**/*.class"/>
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="tarpar" depends="exportparjar">
+		<echo>=======================下载依赖jar包=======================</echo>
+		<!-- <exec executable="/bin/sh" failonerror="true">
+			<arg line="mvn dependency:copy-dependencies -DincludeScope=runtime" />
+		</exec> -->
+		<copy todir="${plugin.webinf.path}/parlib" failonerror="false">
+			<fileset dir="${target.dir}/dependency">
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+
+		<!-- copy静态文件 包括jsp 、js、css -->
+		<echo> ===================拷贝静态页面文件到par包目录=================== </echo>
+		<copy todir="${plugin.dir}/AutoBuildTools-Sec" failonerror="false">
+			<fileset dir="${webroot.dir}/AutoBuildTools-Sec">
+				<include name="**/*.*" />
+				<exclude name="activex/**"/>
+				<exclude name="downloads/**"/>
+				<exclude name="pages/cjdhflash/**"/>
+				<exclude name="images/**"/>
+			</fileset>
+		</copy>
+		<copy todir="${plugin.dir}/data" failonerror="false">
+			<fileset dir="${webroot.dir}/data">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+		<copy todir="${plugin.dir}/images" failonerror="false">
+			<fileset dir="${webroot.dir}/images">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+		<copy todir="${plugin.dir}/scripts" failonerror="false">
+			<fileset dir="${webroot.dir}/scripts">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+			
+		<!-- copy配置文件 包括各种应用配置 -->
+		<echo> ===================拷贝配置文件到par包目录=================== </echo>
+		<copy todir="${plugin.webinf.path}/${plugin.name}" failonerror="false">
+			<fileset dir="${webroot.dir}/WEB-INF/${plugin.name}">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+
+		<echo> ===================拷贝application配置到par包目录=================== </echo>
+		<!-- copy application配置文件 -->
+		<copy todir="${plugin.webinf.path}" failonerror="false">
+			<fileset dir="${webroot.dir}/WEB-INF/">
+				<include name="application_${plugin.name}.xml" />
+				<include name="${plugin.name}_ParWeb.xml" />
+			</fileset>
+		</copy>
+
+		<!-- copy struts配置文件 -->
+		<echo> ===================拷贝struts配置到par包目录=================== </echo>
+		<copy todir="${plugin.webinf.path}/struts" failonerror="false">
+			<fileset dir="${src.dir}">
+				<include name="struts-${plugin.name}-*.xml" />
+			</fileset>
+			<fileset dir="${resources.dir}">
+				<include name="struts-${plugin.name}-*.xml" />
+			</fileset>
+		</copy>
+
+		<!-- copy src目录下基它配置文件 -->
+		<echo> ===================拷贝源代码目录下的除struts外其他配置文件=================== </echo>
+		<copy todir="${plugin.webinf.path}/classes" failonerror="false">
+			<fileset dir="${src.dir}">
+				<exclude name="struts*.*" />
+				<exclude name="include*.xml" />
+				<exclude name="**/*.java" />
+				<exclude name="**/*.class" />
+			</fileset>
+		</copy>
+
+		<!-- copy 差异化路由配置文件 -->
+		<echo> ===================拷贝差异化路由配置=================== </echo>
+		<copy todir="${plugin.webinf.path}/diff" failonerror="false">
+			<fileset dir="${webroot.dir}/WEB-INF/diff">
+				<include name="*.*" />
+			</fileset>
+		</copy>
+
+		<!-- copy soa配置文件 -->
+		<echo> ===================拷贝soa配置文件=================== </echo>
+		<copy todir="${plugin.webinf.path}/soa" failonerror="false">
+			<fileset dir="${webinf.dir}/soa">
+				<include name="*.*" />
+			</fileset>
+		</copy>
+		<!--<copyfile src="${webinf.dir}/soa/${plugin.name}_soaServiceDescriptionApp.xml" 
+            dest="${plugin.webinf.path}/soa/soaServiceDescriptionApp.xml" /> -->
+
+		<!-- copy plugin.xml配置文件 -->
+		<echo> ===================拷贝par包对应的插件配置文件===================
+        </echo>
+		<copy todir="${plugin.dir}">
+			<fileset dir="${basedir}">
+				<include name="plugin.xml" />
+			</fileset>
+		</copy>
+		<!-- <copyfile src="${basedir}/${plugin.name}_plugin.xml" dest="${plugin.dir}/plugin.xml" 
+            /> -->
+
+		<!-- 打成par包 -->
+		<echo> ===================打包插件par包=================== </echo>
+		<!-- 暂时不把版本号打进去 <jar destfile="${basedir}/target/${plugin.name}-${project.version}.par"> -->
+		<jar destfile="${basedir}/target/${plugin.name}.par">
+			<fileset dir="${plugin.dir}">
+				<include name="**/*.*" />
+			</fileset>
+		</jar>
+		<!--删除临时文件 -->
+        <echo> ===================删除临时文件=================== </echo>
+        <delete dir="${plugin.dir}"></delete>
+	</target>
+
+	<!-- 发布par到成果目录 -->
+	<target name="installpar" depends="tarpar">
+		<echo>====================拷贝par包到成果目录======================</echo>
+		<copy tofile="${par.install.dir}/${plugin.name}-${project.version}/${plugin.name}.par" file="${basedir}/target/${plugin.name}.par" />
+		
+		<!-- <echo>====================拷贝LocalSoaConfig配置到成果目录======================</echo>
+		<mkdir dir="${par.install.dir}/${plugin.name}-${project.version}/LocalSoaConfig" />
+		<copy todir="${par.install.dir}/${plugin.name}-${project.version}/LocalSoaConfig/" failonerror="false">
+			<fileset dir="${basedir}/src/main/webapp/WEB-INF/">
+				<include name="${plugin.name}/**/PoolConfig/*.xml" />
+			</fileset>
+		</copy> -->
+
+	</target>
+</project>

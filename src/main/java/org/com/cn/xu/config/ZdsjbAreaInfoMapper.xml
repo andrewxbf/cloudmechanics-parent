@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon May 09 14:39:04 CST 2016-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ZdsjbAreaInfoMapper">
+    <select id="getZdsjbAreaInfoList" resultType="ZdsjbAreaInfo">
+        SELECT AREA_CODE AS areaCode,AREA_NAME as areaName,AREA_NO AS areaNo,AREA_REMARK AS areaRemark,
+        AREA_TOKEN AS areaToken,INVOKE_STATUS AS invokeStatus, INVOKE_RESULT AS invokeResult,
+        INVOKE_START_TIME AS invokeStartTime, INVOKE_END_TIME AS invokeEndTime
+        FROM ZDSJB_AREA_INFO
+        WHERE 1=1
+        <if test="areaCode != null and areaCode != ''">
+            AND AREA_CODE = #{areaCode, jdbcType=VARCHAR}
+        </if>
+        ORDER BY AREA_NO
+    </select>
+
+    <insert id="insertZdsjbAreaInfo" parameterType="ZdsjbAreaInfo">
+        INSERT INTO ZDSJB_AREA_INFO
+          (AREA_CODE,
+           AREA_NAME,
+           AREA_NO,
+           AREA_REMARK,
+           INVOKE_STATUS,
+           INVOKE_START_TIME,
+           INVOKE_END_TIME,
+           AREA_TOKEN,
+           INVOKE_RESULT)
+        VALUES
+          (#{areaCode,
+           jdbcType = VARCHAR},
+           #{areaName,
+           jdbcType = VARCHAR},
+           #{areaNo,
+           jdbcType = NUMERIC},
+           #{areaRemark,
+           jdbcType = VARCHAR},
+           #{invokeStatus,
+           jdbcType = NUMERIC},
+           #{invokeStartTime,
+           jdbcType = TIMESTAMP},
+           #{invokeEndTime,
+           jdbcType = TIMESTAMP},
+           #{areaToken,
+           jdbcType = VARCHAR},
+           #{invokeResult,
+           jdbcType = NUMERIC})
+    </insert>
+
+    <delete id="deleteZdsjbAreaInfo" parameterType="ZdsjbAreaInfo">
+        DELETE FROM ZDSJB_AREA_INFO
+        WHERE 1=1
+        <if test="areaCode != null and areaCode != ''">
+            AND AREA_CODE = #{areaCode, jdbcType=VARCHAR}
+        </if>
+    </delete>
+
+
+</mapper>
+

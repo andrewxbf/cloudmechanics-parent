@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon May 09 14:39:04 CST 2016-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ZdsjbUploadConfigMapper">
+    <select id="getZdsjbUploadConfigList" parameterType="ZdsjbUploadConfig" resultType="ZdsjbUploadConfig">
+        SELECT UP_HOST_IP        AS upHostIp,
+               UP_PORT           AS upPort,
+               UP_USER_NAME      AS upUserName,
+               UP_PASSWORD       AS upPassword,
+               UP_FILE_NAME      AS upFileName,
+               UP_FILE_PATH      AS upFilePath,
+               UP_FILE_SAVE_PATH AS upFileSavePath,
+               UP_CONFIG_NO      AS upConfigNo,
+               AREA_CODE           AS areaCode
+          FROM ZDSJB_UPLOAD_CONFIG
+         WHERE 1 = 1
+           AND AREA_CODE = #{areaCode, jdbcType = VARCHAR}
+    </select>
+
+    <insert id="insertZdsjbUploadConfig" parameterType="ZdsjbUploadConfig">
+        INSERT INTO ZDSJB_UPLOAD_CONFIG
+          (UP_HOST_IP,
+           UP_PORT,
+           UP_USER_NAME,
+           UP_PASSWORD,
+           UP_FILE_NAME,
+           UP_FILE_PATH,
+           UP_FILE_SAVE_PATH,
+           UP_CONFIG_NO,
+           AREA_CODE)
+        VALUES
+          (#{upHostIp,
+           jdbcType = VARCHAR},
+           #{upPort,
+           jdbcType = NUMERIC},
+           #{upUserName,
+           jdbcType = VARCHAR},
+           #{upPassword,
+           jdbcType = VARCHAR},
+           #{upFileName,
+           jdbcType = VARCHAR},
+           #{upFilePath,
+           jdbcType = VARCHAR},
+           #{upFileSavePath,
+           jdbcType = VARCHAR},
+           #{upConfigNo,
+           jdbcType = NUMERIC},
+           #{areaCode,
+           jdbcType = VARCHAR})
+    </insert>
+
+    <update id="updateZdsjbUploadConfig" parameterType="ZdsjbUploadConfig">
+        UPDATE ZDSJB_UPLOAD_CONFIG
+           SET UP_HOST_IP        = #{upHostIp,
+               jdbcType            = VARCHAR},
+               UP_PORT           = #{upPort,
+               jdbcType            = NUMERIC},
+               UP_USER_NAME      = #{upUserName,
+               jdbcType            = VARCHAR},
+               UP_PASSWORD       = #{upPassword,
+               jdbcType            = VARCHAR},
+               UP_FILE_NAME      = #{upFileName,
+               jdbcType            = VARCHAR},
+               UP_FILE_PATH      = #{upFilePath,
+               jdbcType            = VARCHAR},
+               UP_FILE_SAVE_PATH = #{upFileSavePath,
+               jdbcType            = VARCHAR},
+               UP_CONFIG_NO      = #{upConfigNo,
+               jdbcType            = NUMERIC},
+               AREA_CODE           = #{areaCode,
+               jdbcType            = VARCHAR}
+         WHERE 1 = 1
+           AND AREA_CODE = #{areaCode, jdbcType = VARCHAR}
+           AND UP_FILE_NAME = #{upFileName, jdbcType = VARCHAR}
+    </update>
+
+    <delete id="deleteZdsjbUploadConfig" parameterType="ZdsjbUploadConfig">
+        DELETE FROM ZDSJB_UPLOAD_CONFIG
+        WHERE 1 = 1
+        AND AREA_CODE = #{areaCode, jdbcType = VARCHAR}
+        <if test="upFileName != null and upFileName != ''">
+            AND UP_FILE_NAME = #{upFileName, jdbcType = VARCHAR}
+        </if>
+    </delete>
+
+</mapper>
+
